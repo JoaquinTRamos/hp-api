@@ -1,0 +1,23 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  seller: one
+  customer: one
+  enduser: one
+  agent_flag: MyString
+  partner_comment: MyString
+  date: 2023-11-16
+  sales_type: MyString
+  record_type: MyString
+  registers: one
+
+two:
+  seller: two
+  customer: two
+  enduser: two
+  agent_flag: MyString
+  partner_comment: MyString
+  date: 2023-11-16
+  sales_type: MyString
+  record_type: MyString
+  registers: two

@@ -1,0 +1,17 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  SKU: one
+  option: MyString
+  origin: MyString
+  serial_id: MyString
+  purchase_price: 9.99
+  pp_currency_code: MyString
+
+two:
+  SKU: two
+  option: MyString
+  origin: MyString
+  serial_id: MyString
+  purchase_price: 9.99
+  pp_currency_code: MyString
