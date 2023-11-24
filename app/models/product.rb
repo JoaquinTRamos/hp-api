@@ -1,5 +1,5 @@
 class Product < ApplicationRecord
-  belongs_to :SKU, class_name: "ProductMaster"
+  has_one :SKU, class_name: "ProductMaster"
 
   validates :SKU, presence: true
   validates :origin, presence: true

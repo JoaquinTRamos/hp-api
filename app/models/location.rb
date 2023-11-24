@@ -1,5 +1,5 @@
 class Location < ApplicationRecord
-  belongs_to :entity
+  has_and_belongs_to_many :entities
 
   validates :address1, presence: true
   validates :city, presence: true

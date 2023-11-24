@@ -1,11 +1,10 @@
 class Invoice < ApplicationRecord
-  has_one :seller, class_name: "Entity"
-  has_one :customer, class_name: "Entity"
-  has_one :enduser, class_name: "Entity"
-  has_many :registers
+  belongs_to :seller, class_name: 'Entity'
+  belongs_to :customer, class_name: 'Entity'
+  belongs_to :enduser, class_name: 'Entity'
+  has_many :invoice_registers
 
-  validates :seller_id, presence: true
-  validates :customer_id, presence: true
-  validates :enduser_id, presence: true, unless {agent_flag == 'Y'}
-
+  validates :seller, presence: true
+  validates :customer, presence: true
+  validates :enduser, presence: true, :unless => :agent_flag.nil?
 end

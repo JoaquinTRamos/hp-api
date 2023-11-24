@@ -10,13 +10,18 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2023_11_17_142935) do
+ActiveRecord::Schema[7.1].define(version: 2023_11_24_174553) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
   # Custom types defined in this database.
   # Note that some types may not work with other database engines. Be careful if changing database.
   create_enum "canal_types", ["DISTRIBUCION", "Online", "BNA", "CIUDAD"]
+
+  create_table "application_records", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
 
   create_table "deal_masters", force: :cascade do |t|
     t.integer "deal_id"
@@ -27,10 +32,6 @@ ActiveRecord::Schema[7.1].define(version: 2023_11_17_142935) do
     t.daterange "available_range", null: false
     t.decimal "monto", null: false
     t.integer "max_cantidad", null: false
-    t.bigint "product_sku_id", null: false
-    t.bigint "deal_id_id", null: false
-    t.index ["deal_id_id"], name: "index_deal_registers_on_deal_id_id"
-    t.index ["product_sku_id"], name: "index_deal_registers_on_product_sku_id"
   end
 
   create_table "deals", force: :cascade do |t|
@@ -41,7 +42,7 @@ ActiveRecord::Schema[7.1].define(version: 2023_11_17_142935) do
   end
 
   create_table "entities", force: :cascade do |t|
-    t.integer "tax_id", null: false
+    t.bigint "tax_id", null: false
     t.string "name", null: false
   end
 
@@ -65,6 +66,7 @@ ActiveRecord::Schema[7.1].define(version: 2023_11_17_142935) do
     t.string "sales_type", null: false
     t.string "record_type", null: false
     t.bigint "registers_id", null: false, array: true
+    t.string "invoice_id", null: false
     t.index ["customer_id"], name: "index_invoices_on_customer_id"
     t.index ["enduser_id"], name: "index_invoices_on_enduser_id"
     t.index ["registers_id"], name: "index_invoices_on_registers_id"

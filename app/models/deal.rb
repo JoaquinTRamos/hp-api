@@ -1,6 +1,6 @@
 class Deal < ApplicationRecord
-  belongs_to :deal_master
-  has_many :deal_registers
+  has_one :deal_master
+  belongs_to :deal_registers
 
   validates :version, presence: true
   validates :vigencia, presence: true
