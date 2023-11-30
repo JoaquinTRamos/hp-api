@@ -1,6 +1,6 @@
 class ProductMaster < ApplicationRecord
-  belongs_to :invoice_registers
-  belongs_to :deal_registers
+  has_many :deal_registers
+  has_many :products
 
-  validates :SKU, presence: true, length: { is: 16 }
+  validates :SKU, presence: true, length: { is: 7 }
 end

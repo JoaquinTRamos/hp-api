@@ -1,11 +1,10 @@
 class InvoiceRegister < ApplicationRecord
-  has_one :product, class_name: "ProductMaster"
+  belongs_to :product
   has_one :deal_register
   belongs_to :invoice
 
   validates :product, presence: true
-  validates :deal_register
-  validates :quantity, presence:true, quantity.to_i.positive?
-  validates :sell_price, presence:true, sell_price.to_i.positive?
+  validates :quantity, presence:true, :numericality => { :greater_than_or_equal_to => 0 }
+  validates :sell_price, presence:true, :numericality => { :greater_than_or_equal_to => 0 }
   validates :sp_currency_code, presence:true, length: { is: 3 }
 end

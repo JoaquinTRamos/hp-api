@@ -1,5 +1,6 @@
 class DealMaster < ApplicationRecord
 
+  attribute :canal_types, :string
   enum canal_types: {
     BNA: 'BNA',
     DISTRIBUCION: 'DISTRIBUCION',
@@ -7,7 +8,7 @@ class DealMaster < ApplicationRecord
     Online: 'ONLINE'
   }
 
-  belongs_to :deals
+  has_many :deals
 
   validates :deal_id, presence: true, length: {is: 8}
   validates :canal, presence: true, length: {minimum: 1}

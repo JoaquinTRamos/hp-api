@@ -5,5 +5,5 @@ class Location < ApplicationRecord
   validates :city, presence: true
   validates :prov_code, presence: true, length: {is: 2}
   validates :postal_code, presence: true
-  validates :country_code, presence: true, length: {is: 3}
+  validates :country_code, presence: true, length: {is: 2}
 end
