@@ -4,4 +4,12 @@ class Entity < ApplicationRecord
 
   validates :tax_id, presence: true, length: {maximum: 20}
   validates :name, presence: true
+
+  def as_json()
+    {
+      tax_id: tax_id,
+      name: name,
+      locations: locations
+    }
+  end
 end

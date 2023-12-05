@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2023_11_27_170616) do
+ActiveRecord::Schema[7.1].define(version: 2023_12_05_141239) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -91,18 +91,18 @@ ActiveRecord::Schema[7.1].define(version: 2023_11_27_170616) do
   end
 
   create_table "product_masters", force: :cascade do |t|
-    t.string "SKU", null: false
+    t.string "sku", null: false
     t.string "description"
   end
 
   create_table "products", force: :cascade do |t|
-    t.bigint "SKU_id", null: false
+    t.bigint "sku_id", null: false
     t.string "option"
     t.string "origin", null: false
     t.string "serial_id"
     t.decimal "purchase_price", null: false
     t.string "pp_currency_code", null: false
-    t.index ["SKU_id"], name: "index_products_on_SKU_id"
+    t.index ["sku_id"], name: "index_products_on_sku_id"
   end
 
   add_foreign_key "invoice_registers", "products"

@@ -7,4 +7,19 @@ class Invoice < ApplicationRecord
   validates :seller, presence: true
   validates :customer, presence: true
   validates :enduser, presence: true, :unless => :agent_flag.nil?
+
+  def as_json()
+    {
+      id: invoice_id,
+      agent_flag: agent_flag,
+      partner_comment: partner_comment,
+      date: date,
+      sales_type: sales_type,
+      record_type: record_type,
+      seller: Entity.find(seller.id).as_json,
+      customer: Entity.find(customer.id).as_json,
+      enduser: Entity.find(enduser.id).as_json,
+      registers: InvoiceRegister.where("invoice_id=?",id)
+    }
+  end
 end
