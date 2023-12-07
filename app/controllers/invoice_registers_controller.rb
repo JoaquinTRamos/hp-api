@@ -5,4 +5,5 @@ class InvoiceRegistersController < ApplicationController
 
     render :json => @registers
   end
+
 end
