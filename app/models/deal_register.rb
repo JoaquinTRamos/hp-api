@@ -6,4 +6,13 @@ class DealRegister < ApplicationRecord
   validates :monto, presence: true
   validates :max_cantidad, presence: true
   validates :product, presence: true
+
+  def as_json()
+    {
+      product: product.sku,
+      monto: monto,
+      max_cantidad: max_cantidad,
+      available_range: available_range
+    }
+  end
 end

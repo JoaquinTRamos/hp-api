@@ -3,6 +3,8 @@ Rails.application.routes.draw do
 
   resources :entities, only: [:index, :create]
 
+  resources :deals, only: [:index, :create]
+
   get '/invoices', to: 'invoices#index'
 
   get '/invoices/:id', to: 'invoices#show'
@@ -10,6 +12,8 @@ Rails.application.routes.draw do
   get '/invoices/:id/registers',to: 'invoice_registers#show'
 
   get '/entities', to: 'entities#index'
+
+  get '/deals', to: 'deals#index'
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
   # Reveal health status on /up that returns 200 if the app boots with no exceptions, otherwise 500.

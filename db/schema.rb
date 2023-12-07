@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2023_12_05_141239) do
+ActiveRecord::Schema[7.1].define(version: 2023_12_07_155424) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -33,14 +33,14 @@ ActiveRecord::Schema[7.1].define(version: 2023_12_05_141239) do
     t.daterange "available_range", null: false
     t.decimal "monto", null: false
     t.integer "max_cantidad", null: false
-    t.bigint "deal_id"
-    t.bigint "product_id"
+    t.bigint "deal_id" # Make not nullable
+    t.bigint "product_id" # Make not nullable
   end
 
   create_table "deals", force: :cascade do |t|
     t.integer "version", null: false
     t.boolean "vigencia", default: false, null: false
-    t.bigint "deal_master_id"
+    t.bigint "deal_master_id" # Make not nullable
   end
 
   create_table "entities", force: :cascade do |t|
@@ -58,10 +58,10 @@ ActiveRecord::Schema[7.1].define(version: 2023_12_05_141239) do
   create_table "invoice_registers", force: :cascade do |t|
     t.bigint "product_id", null: false
     t.bigint "deal_register_id"
-    t.integer "quantity"
-    t.decimal "sell_price"
-    t.string "sp_currency_code"
-    t.bigint "invoice_id"
+    t.integer "quantity" # Make not nullable
+    t.decimal "sell_price" # Make not nullable
+    t.string "sp_currency_code" # Make not nullable
+    t.bigint "invoice_id" # Make not nullable
     t.index ["deal_register_id"], name: "index_invoice_registers_on_deal_register_id"
     t.index ["product_id"], name: "index_invoice_registers_on_product_id"
   end

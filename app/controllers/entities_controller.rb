@@ -16,7 +16,7 @@ class EntitiesController < ApplicationController
     else
       if entity.blank?
 
-        location = Location.new(
+        location = Location.new( # TODO Hacer que se pueda agregar mas de un location al mismo tiempo.
           address1: params[:address1].upcase,
           address2: params[:address2].upcase,
           city: params[:city].upcase,
