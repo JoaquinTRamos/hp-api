@@ -5,6 +5,8 @@ Rails.application.routes.draw do
 
   resources :deals, only: [:index, :create]
 
+  resources :products, only: [:index, :create_instance, :create_master]
+
   get '/invoices', to: 'invoices#index'
 
   get '/invoices/:id', to: 'invoices#show'
@@ -14,6 +16,12 @@ Rails.application.routes.draw do
   get '/entities', to: 'entities#index'
 
   get '/deals', to: 'deals#index'
+
+  get '/products', to: 'products#index'
+
+  post '/products/create_instance', to: 'products#create_instance'
+
+  post '/products/create_master', to: 'products#create_master'
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
   # Reveal health status on /up that returns 200 if the app boots with no exceptions, otherwise 500.

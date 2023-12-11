@@ -6,7 +6,8 @@ class ProductMaster < ApplicationRecord
 
   def as_json()
     {
-      sku: sku
+      sku: sku,
+      products: products
     }
   end
 end

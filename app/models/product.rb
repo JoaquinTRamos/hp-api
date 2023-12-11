@@ -1,8 +1,7 @@
 class Product < ApplicationRecord
-  belongs_to :sku, class_name: "ProductMaster"
+  belongs_to :product_master
   has_one :invoice_register
 
-  validates :sku, presence: true
   validates :origin, presence: true
   validates :purchase_price, presence: true, :numericality => { :greater_than_or_equal_to => 0 }
   validates :pp_currency_code, presence: true, length: {is: 3}
@@ -10,7 +9,6 @@ class Product < ApplicationRecord
 
   def as_json()
     {
-      sku: sku.sku, # Esto quedo muy confuso, pero hace referencia al Master de Productos y saca su SKU correspondiente
       option: option,
       origin: origin,
       serial: serial_id,

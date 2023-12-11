@@ -6,6 +6,7 @@ class Deal < ApplicationRecord
 
   def as_json()
     {
+      deal_id: deal_master.deal_id,
       vigencia: vigencia,
       version: version,
       registers: deal_registers

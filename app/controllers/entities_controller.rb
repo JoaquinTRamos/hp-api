@@ -12,7 +12,7 @@ class EntitiesController < ApplicationController
     entity = Entity.find_by(tax_id: params[:tax_id])
 
     if entity.blank? == false
-      redirect_to "/entitites", status: :conflict
+      render :json => "Entity already exists", status: :forbidden
     else
       if entity.blank?
 
