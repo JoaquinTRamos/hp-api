@@ -4,6 +4,22 @@ class DealsController < ApplicationController
     render :json => DealMaster.all
   end
 
+  def self.find_deal(sku)
+
+    result = nil
+    Deal.all.each do |deal|
+      if deal.vigencia == true
+        deal.deal_registers.each do |register|
+          if register.product_id == sku
+            result = register
+          end
+        end
+      end
+    end
+
+    return result
+  end
+
   def create
 
     dealmaster = DealMaster.find_by(deal_id: params[:deal_id])
@@ -70,5 +86,30 @@ class DealsController < ApplicationController
       end
     end
 
+  end
+
+  def update_database
+    @deal_masters = DealMaster.joins(:deals).where(deals: {vigencia: true}).distinct
+
+    @deal_masters.each do |dm|
+      current_deal = Deal.find(dm.deals.where(vigencia: true))
+      next_deal = Deal.find_by(version: current_deal.version + 1)
+
+      update_version = true
+
+      next_deal.deal_registers.each do |register|
+        if !register.available_range.include? Date.today
+          update_version = false
+          break
+        end
+      end
+
+      if update_version
+        next_deal.vigencia = true
+        next_deal.save
+        current_deal.vigencia = false
+        current_deal.save
+      end
+    end
   end
 end

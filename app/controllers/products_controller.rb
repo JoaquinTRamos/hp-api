@@ -23,14 +23,16 @@ class ProductsController < ApplicationController
 
       msg = {}
       other_ids = []
-      repeated_serial_id = false
+      new_prods = []
+      errors = false
+      repeat = false
 
       JSON.parse(params[:registers]).each do |register|
 
         temp = Product.find_by(serial_id: register['serial_id'])
 
-        if !temp.blank? or register['serial_id'] === other_ids # If serial_id exists in DB OR serial_id is repeated in previous registers being created.
-          repeated_serial_id = true
+        if !temp.nil? and !(other_ids.include? nil) and !temp.serial_id.nil?
+          repeat = true
           break
         end
 
@@ -42,20 +44,29 @@ class ProductsController < ApplicationController
           pp_currency_code: register['currency_code']
         )
 
-        if new_product.save
-          msg[new_product.id] = new_product
-        else
-          render :json => new_product.errors, status: :unprocessable_entity
-          break
+        new_prods.append(new_product)
 
-        other_ids.append(register['serial_id'])
+        if !register['serial_id'].nil?
+          other_ids.append(register['serial_id'])
         end
 
       end
 
-      if !repeated_serial_id
+      if !repeat and !errors
+        new_prods.each do |new_product|
+          if new_product.save
+            msg[new_product.id] = new_product
+          else
+            render :json => new_product.errors, status: :unprocessable_entity
+            errors = true
+            break
+          end
+        end
+      end
+
+      if !repeat and !errors
         render :json => msg
-      else
+      elsif repeat and !errors
         render :json => "Repeated Serial ID", status: :forbidden
       end
     end

@@ -1,6 +1,6 @@
 class Product < ApplicationRecord
   belongs_to :product_master
-  has_one :invoice_register
+  has_one :invoice_register, class_name: "InvoiceRegister"
 
   validates :origin, presence: true
   validates :purchase_price, presence: true, :numericality => { :greater_than_or_equal_to => 0 }
@@ -9,6 +9,7 @@ class Product < ApplicationRecord
 
   def as_json()
     {
+      id: id,
       option: option,
       origin: origin,
       serial: serial_id,

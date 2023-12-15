@@ -1,6 +1,6 @@
 class InvoiceRegister < ApplicationRecord
   belongs_to :product
-  has_one :deal_register
+  belongs_to :deal_register, optional: true
   belongs_to :invoice
 
   validates :product, presence: true

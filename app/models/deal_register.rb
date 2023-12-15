@@ -1,6 +1,7 @@
 class DealRegister < ApplicationRecord
   belongs_to :product, class_name: "ProductMaster"
   belongs_to :deal
+  has_many :invoice_registers
 
   validates :available_range, presence: true
   validates :monto, presence: true
