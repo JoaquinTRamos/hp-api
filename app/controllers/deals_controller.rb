@@ -37,7 +37,6 @@ class DealsController < ApplicationController
       new_deal = dealmaster.deals.last
 
       JSON.parse(params[:registers]).each do |register|
-        puts register.class
         new_deal.deal_registers.new(
           product: ProductMaster.find_by(sku: register['sku']),
           monto: register['monto'],

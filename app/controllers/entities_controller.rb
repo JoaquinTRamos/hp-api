@@ -16,16 +16,22 @@ class EntitiesController < ApplicationController
     else
       if entity.blank?
 
-        location = Location.new( # TODO Hacer que se pueda agregar mas de un location al mismo tiempo.
-          address1: params[:address1].upcase,
-          address2: params[:address2].upcase,
-          city: params[:city].upcase,
-          prov_code: params[:prov_code].upcase,
-          postal_code: params[:postal_code].upcase,
-          country_code: params[:country_code].upcase
+        locations = []
+
+        JSON.parse(params[:locations]).each do |location|:
+          loc = Location.new(
+            address1: location['address1'].upcase,
+            address2: location['address2'].upcase,
+            city: location['city'].upcase,
+            prov_code: location['prov_code'].upcase,
+            postal_code: location['postal_code'].upcase,
+            country_code: location['country_code'].upcase
           )
 
-        entity = Entity.new(tax_id: params[:tax_id], name: params[:name].upcase, locations: [location])
+          locations.append(loc)
+        end
+
+        entity = Entity.new(tax_id: params[:tax_id], name: params[:name].upcase, locations: locations)
         if entity.save
           render :json => entity
         end
