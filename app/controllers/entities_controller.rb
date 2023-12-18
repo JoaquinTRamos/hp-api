@@ -18,7 +18,8 @@ class EntitiesController < ApplicationController
 
         locations = []
 
-        JSON.parse(params[:locations]).each do |location|:
+        JSON.parse(params[:locations]).each do |location|
+
           loc = Location.new(
             address1: location['address1'].upcase,
             address2: location['address2'].upcase,
