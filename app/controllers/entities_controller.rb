@@ -17,12 +17,11 @@ class EntitiesController < ApplicationController
       if entity.blank?
 
         locations = []
-
         JSON.parse(params[:locations]).each do |location|
-
+          puts location
           loc = Location.new(
             address1: location['address1'].upcase,
-            address2: location['address2'].upcase,
+            address2: if location['address2'] != nil then location['address2'].upcase else nil end,
             city: location['city'].upcase,
             prov_code: location['prov_code'].upcase,
             postal_code: location['postal_code'].upcase,

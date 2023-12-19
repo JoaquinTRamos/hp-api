@@ -5,9 +5,15 @@ class ProductsController < ApplicationController
   end
 
   def create_master
+    repeated = false
+
+    if !ProductMaster.find_by(sku: params[:sku]).nil?
+      repeated = true
+    end
+
     productMaster = ProductMaster.new(sku: params[:sku], description: params[:description])
 
-    if productMaster.save
+    if !repeated and productMaster.save
       render :json => productMaster
     else
       render :json => productMaster.errors, status: :unprocessable_entity
@@ -33,6 +39,7 @@ class ProductsController < ApplicationController
 
         if !temp.nil? and !(other_ids.include? nil) and !temp.serial_id.nil?
           repeat = true
+          puts "THIS HAPPEN!!!"
           break
         end
 

@@ -25,13 +25,16 @@ class DealsController < ApplicationController
     dealmaster = DealMaster.find_by(deal_id: params[:deal_id])
 
     if dealmaster.blank?
-      # Logica nuevo Deal
 
-      dealmaster = DealMaster.new(deal_id: params[:deal_id], canal: params[:canal_types])
+      canal_enum_array = JSON.parse(params[:canal_types])
+
+      # Logica nuevo Deal
+      dealmaster = DealMaster.new(deal_id: params[:deal_id], canal: canal_enum_array)
+
 
       dealmaster.deals.new(
         version: 1,
-        vigencia: -> {params[:available_range] === Date.today}
+        vigencia: -> {Range.new(params[:start_date], params[:end_date]) === Date.today}
       )
 
       new_deal = dealmaster.deals.last

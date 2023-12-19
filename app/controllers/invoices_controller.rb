@@ -23,7 +23,7 @@ class InvoicesController < ApplicationController
     end
 
     if !repeated_invoice
-      invoice = Invoice.find_or_create_by!(
+      invoice = Invoice.new(
         seller: Entity.find_by(tax_id: params[:seller_id]),
         customer: Entity.find_by(tax_id: params[:customer_id]),
         enduser: if params[:agent_flag] == "" then nil else Entity.find_by(tax_id: params[:enduser_id]) end,
@@ -61,8 +61,6 @@ class InvoicesController < ApplicationController
           break
         end
 
-        puts temp.product_master.id
-
         new_register = invoice.invoice_registers.new(
           product: temp,
           deal_register: DealsController.find_deal(temp.product_master.id), #Function to verify if product has deal
@@ -77,7 +75,6 @@ class InvoicesController < ApplicationController
       end
 
       if !repeat_id
-        puts "This happened"
         registers.each do |new_register|
           if new_register.save
             msg[new_register.id] = new_register
@@ -89,9 +86,9 @@ class InvoicesController < ApplicationController
         end
       end
 
-      if invoice.save and !error and !repeat_id
+      if !error and !repeat_id and invoice.save
         render :json => invoice
-      elsif !invoice.save and !error and !repeat_id
+      elsif !error and !repeat_id and !invoice.save
         render :json => "Unable to save Invoice", status: :unprocessable_entity
       end
     end
