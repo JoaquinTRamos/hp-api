@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2023_12_29_155216) do
+ActiveRecord::Schema[7.1].define(version: 2023_12_26_141806) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -19,14 +19,14 @@ ActiveRecord::Schema[7.1].define(version: 2023_12_29_155216) do
   create_enum "canal_types", ["DISTRIBUCION", "Online", "BNA", "CIUDAD"]
 
   create_table "application_records", force: :cascade do |t|
-    t.datetime "updated_at", null: false
-    t.datetime "created_at", precision: nil
+    t.datetime "impacted_at", null: false
   end
 
   create_table "deal_masters", force: :cascade do |t|
     t.integer "deal_id"
     t.enum "canal", null: false, array: true, enum_type: "canal_types"
     t.string "canal_types"
+    t.bigint "application_records_id", null: false
   end
 
   create_table "deal_registers", force: :cascade do |t|
@@ -35,17 +35,20 @@ ActiveRecord::Schema[7.1].define(version: 2023_12_29_155216) do
     t.integer "max_cantidad", null: false
     t.bigint "deal_id"
     t.bigint "product_id"
+    t.bigint "application_records_id", null: false
   end
 
   create_table "deals", force: :cascade do |t|
     t.integer "version", null: false
     t.boolean "vigencia", default: false, null: false
     t.bigint "deal_master_id"
+    t.bigint "application_records_id", null: false
   end
 
   create_table "entities", force: :cascade do |t|
     t.bigint "tax_id", null: false
     t.string "name", null: false
+    t.bigint "application_records_id", null: false
   end
 
   create_table "entities_locations", id: false, force: :cascade do |t|
@@ -62,6 +65,7 @@ ActiveRecord::Schema[7.1].define(version: 2023_12_29_155216) do
     t.decimal "sell_price"
     t.string "sp_currency_code"
     t.bigint "invoice_id"
+    t.bigint "application_records_id", null: false
     t.index ["deal_register_id"], name: "index_invoice_registers_on_deal_register_id"
     t.index ["product_id"], name: "index_invoice_registers_on_product_id"
   end
@@ -69,13 +73,14 @@ ActiveRecord::Schema[7.1].define(version: 2023_12_29_155216) do
   create_table "invoices", force: :cascade do |t|
     t.bigint "seller_id", null: false
     t.bigint "customer_id", null: false
-    t.bigint "enduser_id"
+    t.bigint "enduser_id", null: false
     t.string "agent_flag"
     t.string "partner_comment", null: false
     t.date "date", null: false
     t.string "sales_type", null: false
     t.string "record_type", null: false
     t.string "invoice_id", null: false
+    t.bigint "application_records_id", null: false
     t.index ["customer_id"], name: "index_invoices_on_customer_id"
     t.index ["enduser_id"], name: "index_invoices_on_enduser_id"
     t.index ["seller_id"], name: "index_invoices_on_seller_id"
@@ -88,11 +93,13 @@ ActiveRecord::Schema[7.1].define(version: 2023_12_29_155216) do
     t.string "prov_code", null: false
     t.string "postal_code", null: false
     t.string "country_code", null: false
+    t.bigint "application_records_id", null: false
   end
 
   create_table "product_masters", force: :cascade do |t|
     t.string "sku", null: false
     t.string "description"
+    t.bigint "application_records_id", null: false
   end
 
   create_table "products", force: :cascade do |t|
@@ -102,6 +109,7 @@ ActiveRecord::Schema[7.1].define(version: 2023_12_29_155216) do
     t.string "serial_id"
     t.decimal "purchase_price", null: false
     t.string "pp_currency_code", null: false
+    t.bigint "application_records_id", null: false
     t.index ["product_master_id"], name: "index_products_on_product_master_id"
   end
 

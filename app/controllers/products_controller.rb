@@ -39,7 +39,6 @@ class ProductsController < ApplicationController
 
         if !temp.nil? and !(other_ids.include? nil) and !temp.serial_id.nil?
           repeat = true
-          puts "THIS HAPPEN!!!"
           break
         end
 
@@ -76,6 +75,16 @@ class ProductsController < ApplicationController
       elsif repeat and !errors
         render :json => "Repeated Serial ID", status: :forbidden
       end
+    end
+  end
+
+  def serial_id_exists
+    productInstance = Product.find_by(serial_id: params[:serial])
+
+    if productInstance.blank?
+      render :json => false, status: :not_found
+    else
+      render :json => true, status: :ok
     end
   end
 end

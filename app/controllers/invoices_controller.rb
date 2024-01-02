@@ -7,7 +7,7 @@ class InvoicesController < ApplicationController
   end
 
   def show
-    @invoice = Invoice.find(params[:id])
+    @invoice = Invoice.find_by(invoice_id: params[:id])
 
     render :json => @invoice
   end
@@ -26,7 +26,7 @@ class InvoicesController < ApplicationController
       invoice = Invoice.new(
         seller: Entity.find_by(tax_id: params[:seller_id]),
         customer: Entity.find_by(tax_id: params[:customer_id]),
-        enduser: if params[:agent_flag] == "" then nil else Entity.find_by(tax_id: params[:enduser_id]) end,
+        enduser: if params[:agent_flag] != "Y" then nil else Entity.find_by(tax_id: params[:enduser_id]) end,
         agent_flag: params[:agent_flag],
         partner_comment: params[:partner_comment],
         date: params[:date],
@@ -63,7 +63,8 @@ class InvoicesController < ApplicationController
 
         new_register = invoice.invoice_registers.new(
           product: temp,
-          deal_register: DealsController.find_deal(temp.product_master.id), #Function to verify if product has deal
+          deal_register: DealsController.find_deal(temp.product_master.id, if params[:agent_flag] == "Y" then "ONLINE" else "DISTRIBUCION" end), #Function to verify if product has deal
+          # PROBAR!!
           quantity: register['quantity'],
           sell_price: register['sell_price'],
           sp_currency_code: register['currency_code'],
@@ -89,7 +90,7 @@ class InvoicesController < ApplicationController
       if !error and !repeat_id and invoice.save
         render :json => invoice
       elsif !error and !repeat_id and !invoice.save
-        render :json => "Unable to save Invoice", status: :unprocessable_entity
+        render :json => invoice.errors, status: :unprocessable_entity
       end
     end
   end

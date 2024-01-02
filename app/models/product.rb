@@ -10,6 +10,7 @@ class Product < ApplicationRecord
   def as_json()
     {
       id: id,
+      sku: product_master.sku,
       option: option,
       origin: origin,
       serial: serial_id,

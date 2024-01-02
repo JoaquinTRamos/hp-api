@@ -24,7 +24,7 @@ class EntitiesController < ApplicationController
             address2: if location['address2'] != nil then location['address2'].upcase else nil end,
             city: location['city'].upcase,
             prov_code: location['prov_code'].upcase,
-            postal_code: location['postal_code'].upcase,
+            postal_code: location['postal_code'],
             country_code: location['country_code'].upcase
           )
 

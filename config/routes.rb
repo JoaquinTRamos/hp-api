@@ -9,6 +9,8 @@ Rails.application.routes.draw do
 
   resources :invoices, only: [:index, :show, :create]
 
+  post '/transaction_token', to: 'impacts#generate_transaction_token'
+
   get '/invoices', to: 'invoices#index'
 
   get '/invoices/:id', to: 'invoices#show'
@@ -20,6 +22,8 @@ Rails.application.routes.draw do
   get '/deals', to: 'deals#index'
 
   get '/products', to: 'products#index'
+
+  get '/products/:serial', to: 'products#serial_id_exists'
 
   post '/products/create_instance', to: 'products#create_instance'
 

@@ -2,7 +2,7 @@ class ProductMaster < ApplicationRecord
   has_many :deal_registers
   has_many :products
 
-  validates :sku, presence: true, length: { is: 7 }
+  validates :sku, presence: true
 
   def as_json()
     {

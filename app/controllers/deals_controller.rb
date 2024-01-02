@@ -4,13 +4,13 @@ class DealsController < ApplicationController
     render :json => DealMaster.all
   end
 
-  def self.find_deal(sku)
+  def self.find_deal(sku, canal)
 
     result = nil
     Deal.all.each do |deal|
       if deal.vigencia == true
         deal.deal_registers.each do |register|
-          if register.product_id == sku
+          if register.product_id == sku && register.deal.deal_master.canal.include? canal
             result = register
           end
         end
@@ -24,6 +24,8 @@ class DealsController < ApplicationController
 
     dealmaster = DealMaster.find_by(deal_id: params[:deal_id])
 
+    range = Range.new(Date.strptime(params[:start_date], "%Y-%m-%d"), Date.strptime(params[:end_date], "%Y-%m-%d"))
+
     if dealmaster.blank?
 
       canal_enum_array = JSON.parse(params[:canal_types])
@@ -31,10 +33,9 @@ class DealsController < ApplicationController
       # Logica nuevo Deal
       dealmaster = DealMaster.new(deal_id: params[:deal_id], canal: canal_enum_array)
 
-
       dealmaster.deals.new(
         version: 1,
-        vigencia: -> {Range.new(params[:start_date], params[:end_date]) === Date.today}
+        vigencia: range.include?(Date.today)
       )
 
       new_deal = dealmaster.deals.last
@@ -59,8 +60,6 @@ class DealsController < ApplicationController
 
       old_deal = dealmaster.deals.last
 
-      range = Range.new(params[:start_date], params[:end_date]).map { |date_str| Date.strptime(date_str, "%Y-%m-%d") }
-
       dealmaster.deals.new(
         version: old_deal.version + 1,
         vigencia: range.include?(Date.today)
@@ -81,7 +80,7 @@ class DealsController < ApplicationController
       end
 
       if dealmaster.save
-        old_deal.update_attribute(:vigencia, !range.include?(Date.today))
+        old_deal.update_attribute(:vigencia, range.include?(Date.today))
         render :json => dealmaster
       else
         render :json => dealmaster.errors, status: :unprocessable_entity
