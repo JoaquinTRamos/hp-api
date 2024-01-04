@@ -10,7 +10,7 @@ class DealsController < ApplicationController
     Deal.all.each do |deal|
       if deal.vigencia == true
         deal.deal_registers.each do |register|
-          if register.product_id == sku && register.deal.deal_master.canal.include? canal
+          if register.product_id == sku && register.deal.deal_master.canal.include?(canal)
             result = register
           end
         end
