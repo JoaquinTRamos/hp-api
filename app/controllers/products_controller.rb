@@ -4,6 +4,14 @@ class ProductsController < ApplicationController
     render :json => ProductMaster.all
   end
 
+  def find_by_id
+    render :json => Product.find(params[:id])
+  end
+
+  def find_by_serial_id
+    render :json => Product.find_by(serial_id: params[:id])
+  end
+
   def create_master
     repeated = false
 

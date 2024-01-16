@@ -86,7 +86,24 @@ class DealsController < ApplicationController
         render :json => dealmaster.errors, status: :unprocessable_entity
       end
     end
+  end
 
+  def find_deal_by_sku_and_date
+    sku = params[:sku]
+    date = Date.parse(params[:date])
+    product_master = ProductMaster.where(sku: sku).first
+    deals_with_sku = DealRegister.where("product_id = ? AND available_range @> ?::date", product_master.id, date) if product_master
+
+    if deals_with_sku.blank?
+      render :json => nil, status: :not_found
+    else
+      render :json => deals_with_sku
+    end
+
+  end
+
+  def show_register
+    render :json => DealRegister.find(params[:id])
   end
 
   def update_database

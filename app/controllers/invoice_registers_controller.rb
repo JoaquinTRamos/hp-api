@@ -6,4 +6,12 @@ class InvoiceRegistersController < ApplicationController
     render :json => @registers
   end
 
+  def find_register_by_product_serial_id
+
+    product = Product.where(serial_id: params[:serial_id]).last
+
+    render :json => InvoiceRegister.find_by(product_id: product.id)
+
+  end
+
 end

@@ -15,15 +15,25 @@ Rails.application.routes.draw do
 
   get '/invoices/:id', to: 'invoices#show'
 
-  get '/invoices/:id/registers',to: 'invoice_registers#show' # Capaz sacar este Controller y meterlo de una en InvoiceController
+  get '/invoices/:id/registers', to: 'invoice_registers#show' # Capaz sacar este Controller y meterlo de una en InvoiceController
+
+  get '/invoices/register/:serial_id', to: 'invoice_registers#find_register_by_product_serial_id'
 
   get '/entities', to: 'entities#index'
 
   get '/deals', to: 'deals#index'
 
+  get '/deals/register/:id', to: 'deals#show_register'
+
+  get '/deals/:sku/:date', to: 'deals#find_deal_by_sku_and_date'
+
   get '/products', to: 'products#index'
 
-  get '/products/:serial', to: 'products#serial_id_exists'
+  get '/products/:id', to: 'products#find_by_id'
+
+  get '/products/serial/:id', to: 'products#find_by_serial_id'
+
+  get '/products/:serial/exists', to: 'products#serial_id_exists'
 
   post '/products/create_instance', to: 'products#create_instance'
 
