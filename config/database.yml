@@ -79,6 +79,8 @@ test:
 #
 production:
   <<: *default
-  database: hp_production
-  username: hp
-  password: <%= ENV["HP_DATABASE_PASSWORD"] %>
+  host: <%= ENV['DB_HOST'] %>
+  database: <%= ENV['DB_DATABASE'] %>
+  username: <%= ENV['DB_USERNAME'] %>
+  password: <%= ENV['DB_PASSWORD'] %>
+
