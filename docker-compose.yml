@@ -1,0 +1,18 @@
+version: '1'
+
+services:
+  nginx:
+    build:
+      context: /nginx/
+      dockerfile: Dockerfile.nginx
+    ports: [ "80:80" ]
+
+  rails:
+    build:
+      context: .
+      dockerfile: Dockerfile.rails
+    ports: [ "3000:3000" ]
+    depends_on:
+      - nginx
+    env_file:
+      - .env

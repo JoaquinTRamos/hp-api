@@ -1,0 +1,13 @@
+2024/01/22 10:32:20 [notice] 16456#15780: signal process started
+2024/01/22 10:32:33 [notice] 2568#13988: signal process started
+2024/01/22 10:32:33 [error] 2568#13988: CreateFile() "C:\Users\JoaquinRamos\Desktop\nginx-1.25.3/logs/nginx.pid" failed (2: El sistema no puede encontrar el archivo especificado)
+2024/01/22 10:32:49 [notice] 6752#23844: signal process started
+2024/01/22 10:32:49 [error] 6752#23844: CreateFile() "C:\Users\JoaquinRamos\Desktop\nginx-1.25.3/logs/nginx.pid" failed (2: El sistema no puede encontrar el archivo especificado)
+2024/01/22 10:34:11 [notice] 13692#4748: signal process started
+2024/01/22 10:34:11 [error] 13692#4748: CreateFile() "C:\Users\JoaquinRamos\Desktop\nginx-1.25.3/logs/nginx.pid" failed (2: El sistema no puede encontrar el archivo especificado)
+2024/01/22 10:34:23 [notice] 14608#4188: signal process started
+2024/01/22 10:34:23 [error] 14608#4188: CreateFile() "C:\Users\JoaquinRamos\Desktop\nginx-1.25.3/logs/nginx.pid" failed (2: El sistema no puede encontrar el archivo especificado)
+2024/01/22 11:34:29 [notice] 13788#15108: signal process started
+2024/01/22 11:35:13 [emerg] 14292#18456: CreateFile() "C:\Users\JoaquinRamos\Desktop\Local\hp\nginx/conf/nginx.conf" failed (3: El sistema no puede encontrar la ruta especificada)
+2024/01/22 11:35:20 [emerg] 24104#6176: CreateFile() "C:\Users\JoaquinRamos\Desktop\Local\hp\nginx/conf/nginx.conf" failed (3: El sistema no puede encontrar la ruta especificada)
+2024/01/22 11:36:20 [emerg] 10756#19500: "server" directive is not allowed here in C:\Users\JoaquinRamos\Desktop\Local\hp\nginx/conf/nginx.conf:1
