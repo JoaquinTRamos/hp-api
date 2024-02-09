@@ -21,6 +21,8 @@ Rails.application.routes.draw do
 
   get '/entities', to: 'entities#index'
 
+  get '/entities/:id', to: 'entities#show'
+
   get '/deals', to: 'deals#index'
 
   get '/deals/register/:id', to: 'deals#show_register'

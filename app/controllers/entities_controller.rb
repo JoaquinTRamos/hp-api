@@ -5,7 +5,13 @@ class EntitiesController < ApplicationController
   end
 
   def show
+    entity = Entity.find(params[:id])
 
+    if entity.blank? == false
+      render :json => entity
+    else
+      render :json => nil
+    end
   end
 
   def create
