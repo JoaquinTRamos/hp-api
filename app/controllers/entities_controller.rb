@@ -5,7 +5,7 @@ class EntitiesController < ApplicationController
   end
 
   def show
-    entity = Entity.find(params[:id])
+    entity = Entity.find_by(tax_id: params[:tax_id])
 
     if entity.blank? == false
       render :json => entity
