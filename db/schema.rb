@@ -55,6 +55,10 @@ ActiveRecord::Schema[7.1].define(version: 2023_12_29_155216) do
     t.index ["location_id"], name: "index_entities_locations_on_location_id"
   end
 
+  create_table "impacts", force: :cascade do |t|
+    t.datetime "impacted_at", null: false
+  end
+
   create_table "invoice_registers", force: :cascade do |t|
     t.bigint "product_id", null: false
     t.bigint "deal_register_id"
