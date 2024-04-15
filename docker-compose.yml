@@ -2,12 +2,14 @@ version: '1'
 
 services:
   nginx:
+    container_name: ngCeven
     build:
       context: /nginx/
       dockerfile: Dockerfile.nginx
     ports: [ "80:80" ]
 
   rails:
+    container_name: RORCeven
     build:
       context: .
       dockerfile: Dockerfile.rails
