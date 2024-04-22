@@ -19,7 +19,14 @@ class ProductsController < ApplicationController
       repeated = true
     end
 
-    productMaster = ProductMaster.new(sku: params[:sku], description: params[:description])
+    productMaster = ProductMaster.new(sku: params[:sku],
+      description: params[:description],
+      is_active: params[:is_active].casecmp?("true"),
+      business_unit: params[:business_unit],
+      category: params[:category],
+      subcategory: params[:subcategory],
+      category_gfast: params[:categoryGFAST],
+      brand: params[:brand])
 
     if !repeated and productMaster.save
       render :json => productMaster

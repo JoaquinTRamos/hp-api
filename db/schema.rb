@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2023_12_29_155216) do
+ActiveRecord::Schema[7.1].define(version: 2024_04_17_141312) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -97,6 +97,12 @@ ActiveRecord::Schema[7.1].define(version: 2023_12_29_155216) do
   create_table "product_masters", force: :cascade do |t|
     t.string "sku", null: false
     t.string "description"
+    t.boolean "is_active", null: false
+    t.string "business_unit", null: false
+    t.string "category", null: false
+    t.string "subcategory", null: false
+    t.string "category_gfast", null: false
+    t.string "brand", null: false
   end
 
   create_table "products", force: :cascade do |t|
