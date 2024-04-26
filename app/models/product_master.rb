@@ -3,7 +3,6 @@ class ProductMaster < ApplicationRecord
   has_many :products
 
   validates :sku, presence: true
-  validates :is_active, presence: true
   validates :business_unit, presence: true
   validates :category, presence: true
   validates :subcategory, presence: true

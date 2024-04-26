@@ -21,7 +21,7 @@ class ProductsController < ApplicationController
 
     productMaster = ProductMaster.new(sku: params[:sku],
       description: params[:description],
-      is_active: params[:is_active].casecmp?("true"),
+      is_active: params[:is_active] == "true" ? true : false,
       business_unit: params[:business_unit],
       category: params[:category],
       subcategory: params[:subcategory],
@@ -31,6 +31,7 @@ class ProductsController < ApplicationController
     if !repeated and productMaster.save
       render :json => productMaster
     else
+
       render :json => productMaster.errors, status: :unprocessable_entity
     end
   end
